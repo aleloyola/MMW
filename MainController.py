@@ -11,15 +11,27 @@ config = ConfigParser.RawConfigParser()
 config.read('ConfigFile.properties')
 
 # reading properties values
-url = config.get('API', 'API.url')
-header_property = config.get('API', 'API.header_property')
-header_value = config.get('API', 'API.header_value')
+url = config.get('API-login', 'API.url')
+params = config.get('API-login', 'API.params')
 file_name = config.get('file', 'file.download_file_name') + datetime.now().__str__() + '.json'
+url_ventas = config.get('API-ventas', 'API-ventas.url')
+params_venta = config.get('API-ventas','API-ventas.params')
 
-response = request.get(url, header_property, header_value)
-jsoncontrol.writefile(file_name, response)
+URI = url + params
+print(URI)
+response = request.get(URI)
 
 
-print (response[0]['first_name'])
-for driver in response:
-    print (driver['first_name'])
+token = response[0]['Token']
+
+URI_ventas = url_ventas+token+params_venta
+response_venta = request.get(URI_ventas)
+
+print(token)
+print(response_venta)
+
+jsoncontrol.writefile(file_name, response_venta)
+
+#print ()
+#for driver in response:
+#    print (driver['EV_VENTA'])

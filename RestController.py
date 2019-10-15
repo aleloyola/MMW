@@ -12,9 +12,9 @@ class RestController:
     # def __init__(self):
 
     # instance method
-    def get(self, url, header_property, header_value):
-        header = {header_property: header_value}
-        response = requests.get(url, headers=header)
+    def get(self, url):
+        # header = {header_property: header_value}
+        response = requests.get(url)
         if response.status_code != 200:
             # This means something went wrong.
             return "GET {} {}".format(url, response.status_code)
