@@ -2,10 +2,11 @@ import ConfigParser
 from datetime import datetime
 from JsonController import JsonController
 from RestController import RestController
+from MySQLController import MySQLController
 
 request = RestController()
 jsoncontrol = JsonController()
-
+mysqlcontrol = MySQLController()
 # reading property file
 config = ConfigParser.RawConfigParser()
 config.read('ConfigFile.properties')
@@ -18,20 +19,16 @@ url_ventas = config.get('API-ventas', 'API-ventas.url')
 params_venta = config.get('API-ventas','API-ventas.params')
 
 URI = url + params
-print(URI)
 response = request.get(URI)
-
-
 token = response[0]['Token']
 
 URI_ventas = url_ventas+token+params_venta
+print(URI_ventas)
 response_venta = request.get(URI_ventas)
+info_venta = response_venta[0]['ET_VENTA']
 
-print(token)
-print(response_venta)
+mysqlcontrol.insertData(info_venta)
 
-jsoncontrol.writefile(file_name, response_venta)
+jsoncontrol.writefile(file_name, info_venta)
 
-#print ()
-#for driver in response:
-#    print (driver['EV_VENTA'])
+
