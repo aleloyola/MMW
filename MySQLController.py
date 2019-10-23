@@ -7,7 +7,12 @@ class MySQLController:
 
     # instance method
     def insertaventa(self, info_venta):
-        cnx = mysql.connector.connect(user='scott', database='employees')
+        cnx = mysql.connector.connect(
+            host="172.29.10.223",
+            user="mci",
+            passwd="desarrollo",
+            database="MCI")
+
         cursor = cnx.cursor()
         add_venta = ("INSERT INTO sell_in "
                      "(soc,sales_org,distri_channel,channel_descr,sector,sector_descr,request_code,payment_resp_code,payment_resp_descr,payment_condition,payment_condition_descr,center,center_descr,invoice_class,invoice_number,invoice_class_descr,legal_invoice_number,invoice_creation_date,invoice_issue_date,SKU,SKU_descr,sale_qty,sale_unit,volume,cost,price_list,discount_automatic,discount_manual,transport_total,price_net,tax,incoterms,incoterms_descr,incoterms2,state,sale_office,sale_office_descr,sales_force_group,sales_force_group_desc,SKU_type,SKU_type_descr,article_group,article_group_descr,classification_lvl_1,classification_lvl_2,classification_lvl_3,classification_lvl_4,classification_lvl_5,classification_lvl_6,classification_lvl_7,product_line_mkt,sale_zone,sale_zone_descr,division,division_descr,year,month) "

@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 from datetime import datetime
 from JsonController import JsonController
 from RestController import RestController
@@ -8,7 +8,7 @@ request = RestController()
 jsoncontrol = JsonController()
 mysqlcontrol = MySQLController()
 # reading property file
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 config.read('ConfigFile.properties')
 
 # reading properties values
@@ -27,7 +27,7 @@ print(URI_ventas)
 response_venta = request.get(URI_ventas)
 info_venta = response_venta[0]['ET_VENTA']
 
-mysqlcontrol.insertData(info_venta)
+mysqlcontrol.insertaventa(info_venta)
 
 jsoncontrol.writefile(file_name, info_venta)
 
