@@ -8,5 +8,7 @@ ADD ConfigFile.properties /
 
 RUN pip install configparser
 RUN pip install requests
+RUN pip install mysqlclient
+RUN pip install mysql-connector
 
 CMD [ "python", "./MainController.py" ]
