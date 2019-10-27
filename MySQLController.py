@@ -6,12 +6,12 @@ class MySQLController:
         pass
 
     # instance method
-    def insertaventa(self, info_venta):
+    def insertaventa(self, server, username, password, db, info_venta):
         cnx = mysql.connector.connect(
-            host="172.29.10.223",
-            user="mci",
-            passwd="desarrollo",
-            database="MCI")
+            host=server,
+            user=username,
+            passwd=password,
+            database=db)
 
         cursor = cnx.cursor()
         add_venta = ('INSERT INTO sell_in '
@@ -34,9 +34,11 @@ class MySQLController:
             venta['classification_lvl_3'], venta['classification_lvl_4'], venta['classification_lvl_5'],
             venta['classification_lvl_6'], venta['classification_lvl_7'], venta['product_line_mkt'], venta['sale_zone'],
             venta['sale_zone_descr'], venta['division'], venta['division_descr'], venta['year'], venta['month'],
-                float(venta['sale_qty']),  float(venta['volume']), float(venta['cost']),
-                float(venta['price_list']), float(venta['discount_automatic']), float(venta['discount_manual']), float(venta['transport_total']),
-                float(venta['price_net']), float(venta['tax']))
+                float(venta['sale_qty'].replace(',', '.')),  float(
+                    venta['volume'].replace(',', '.')), float(venta['cost'].replace(',', '.')),
+                float(venta['price_list'].replace(',', '.')), float(venta['discount_automatic'].replace(',', '.')), float(
+                    venta['discount_manual'].replace(',', '.')), float(venta['transport_total'].replace(',', '.')),
+                float(venta['price_net'].replace(',', '.')), float(venta['tax'].replace(',', '.')))
             print("se inserta registro")
             print(add_venta)
             print(data_venta)

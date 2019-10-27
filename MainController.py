@@ -27,7 +27,19 @@ print(URI_ventas)
 response_venta = request.get(URI_ventas)
 info_venta = response_venta[0]['ET_VENTA']
 
-mysqlcontrol.insertaventa(info_venta)
+#Descomentar para apuntar a DB desarrollo
+#host = config.get('mysql-desa', 'desa.host')
+#user = config.get('mysql-desa', 'desa.user')
+#password = config.get('mysql-desa', 'desa.password')
+#db = config.get('mysql-desa', 'desa.database') 
+
+#Descomentar para apuntar a DB producccion
+host = config.get('mysql', 'prod.host')
+user = config.get('mysql', 'prod.user')
+password = config.get('mysql', 'prod.password')
+db = config.get('mysql', 'prod.database')
+
+mysqlcontrol.insertaventa(host, user, password, db, info_venta)
 
 jsoncontrol.writefile(file_name, info_venta)
 
