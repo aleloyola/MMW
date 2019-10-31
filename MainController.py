@@ -1,5 +1,5 @@
 import configparser
-from datetime import datetime
+from datetime import date, timedelta
 from JsonController import JsonController
 from RestController import RestController
 from MySQLController import MySQLController
@@ -14,9 +14,15 @@ config.read('ConfigFile.properties')
 # reading properties values
 url = config.get('API-login', 'API.url')
 params = config.get('API-login', 'API.params')
-file_name = config.get('file', 'file.download_file_name') + datetime.now().__str__() + '.json'
+file_name = config.get('file', 'file.download_file_name') + str(date.today()) + '.json'
 url_ventas = config.get('API-ventas', 'API-ventas.url')
 params_venta = config.get('API-ventas','API-ventas.params')
+today = date.today()
+yesterday = today - timedelta(1)
+yesterday = str(yesterday)
+today = str(today)
+params_venta = params_venta.replace("DESDE",yesterday)
+params_venta = params_venta.replace("HASTA", today)
 
 URI = url + params
 response = request.get(URI)
